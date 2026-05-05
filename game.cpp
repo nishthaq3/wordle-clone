@@ -1,15 +1,31 @@
 #include "game.h"
+#include <vector>
 string evaluateGuess(string word, string guess) {
     string res = "";
+	vector<int> freq(26,0);
 
+	for(char ch : word){
+		freq[ch-'A']++;
+	}
     //first pass
     for(int j = 0; j < 5; j++) {
         if(word[j] == guess[j]) {
             res += "_";
+			freq[word[j] - 'A']--;
         } else {
             res += "?";
         }
     }
-	//adding second pass later
+	//second pass
+	for(int j = 0; j < 5; j++) {
+    if(res[j] == '?') {
+        if(freq[guess[j] - 'A'] > 0) {
+            res[j] = '~';
+            freq[guess[j] - 'A']--;
+        } else {
+            res[j] = 'X';
+        }
+    }
+}
 	return res;
 }
