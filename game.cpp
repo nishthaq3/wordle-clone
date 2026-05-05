@@ -11,4 +11,5 @@ string evaluateGuess(string word, string guess) {
         }
     }
 	//adding second pass later
+	return res;
 }
