@@ -1,5 +1,7 @@
 #include "game.h"
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 string evaluateGuess(string word, string guess) {
     string res = "";
 	vector<int> freq(26,0);
@@ -16,6 +18,7 @@ string evaluateGuess(string word, string guess) {
             res += "?";
         }
     }
+	
 	//second pass
 	for(int j = 0; j < 5; j++) {
     if(res[j] == '?') {
@@ -28,4 +31,17 @@ string evaluateGuess(string word, string guess) {
     }
 }
 	return res;
+}
+string getRandomWord(){
+	vector<string> words={
+		"BATON",
+		"APPLE",
+		"POWER",
+		"FIELD",
+		"ADIEU",
+		"EARTH"
+	};
+	srand(time(0));
+	int randomIndex=rand()%words.size();
+	return words[randomIndex];
 }
