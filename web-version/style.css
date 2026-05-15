@@ -38,3 +38,17 @@ h1{
 
     text-transform: uppercase;
 }
+.correct{
+    background-color: #538d4e;
+    border-color: #538d4e;
+}
+
+.present{
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+}
+
+.absent{
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+}

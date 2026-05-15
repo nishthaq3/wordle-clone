@@ -1,3 +1,4 @@
+const secretWord="NAIVE";
 const board = document.querySelector(".board");
 
 const rows=6;
@@ -39,7 +40,53 @@ document.addEventListener("keydown", (event) => {
     }
     //move to next line if pressed enter
     else if(key==="Enter"){
+
         if(currentCol===cols){
+            //adding guess logic
+        let guess="";
+        for(let c=0;c<cols;c++){
+            guess += tiles[currentRow][c].textContent;
+        }
+        console.log(guess);
+
+        const letterCount = {};
+        for(let letter of secretWord) {
+
+            if(letterCount[letter]) {
+                letterCount[letter]++;
+            } else {
+                letterCount[letter] = 1;
+            }
+        }
+        for(let c = 0; c < cols; c++) {
+
+            if(guess[c] === secretWord[c]) {
+        
+                tiles[currentRow][c].classList.add("correct");
+        
+                letterCount[guess[c]]--;
+            }
+        }
+        for(let c = 0; c < cols; c++) {
+
+            //skip already green
+            if(tiles[currentRow][c].classList.contains("correct")) {
+                continue;
+            }
+        
+            const letter = guess[c];
+        
+            if(letterCount[letter] > 0) {
+        
+                tiles[currentRow][c].classList.add("present");
+        
+                letterCount[letter]--;
+        
+            } else {
+        
+                tiles[currentRow][c].classList.add("absent");
+            }
+        }
             currentRow++;
             currentCol=0;
         }
