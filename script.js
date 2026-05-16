@@ -12,7 +12,7 @@ let gameEnd=false;
 
 const tiles=[];
 
-function showMessage(text){
+function showMessage(text, permanent = false){
 
     const container = document.getElementById("message-container");
 
@@ -21,6 +21,10 @@ function showMessage(text){
     const message = document.createElement("div");
 
     message.classList.add("message");
+
+    if(permanent){
+        message.classList.add("permanent-message");
+    }
 
     message.textContent = text;
 
