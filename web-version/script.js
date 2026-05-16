@@ -1,4 +1,4 @@
-const secretWord="NAIVE";
+const secretWord=words[Math.floor(Math.random() * words.length)].toUpperCase();
 const board = document.querySelector(".board");
 
 const rows=6;
@@ -67,6 +67,13 @@ document.addEventListener("keydown", (event) => {
             guess += tiles[currentRow][c].textContent;
         }
         console.log(guess);
+        
+        if(!words.includes(guess.toLowerCase())){
+
+            showMessage("Not in word list");
+        
+            return;
+        }
 
         const letterCount = {};
         for(let letter of secretWord) {
