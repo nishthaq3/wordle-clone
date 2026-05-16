@@ -26,6 +26,18 @@ function showMessage(text){
 
     container.appendChild(message);
 }
+function colorKey(letter, className){
+
+    const keys = document.querySelectorAll(".key");
+
+    keys.forEach((key) => {
+
+        if(key.textContent === letter){
+
+            key.classList.add(className);
+        }
+    });
+}
 
 for(let r=0;r<rows;r++){
    const row=[]
@@ -37,14 +49,10 @@ for(let r=0;r<rows;r++){
     }
     tiles.push(row);
 }
-
-document.addEventListener("keydown", (event) => {
+function handleKeyPress(key){
     if(gameEnd || isAnimating){
         return;
     }
-
-    const key = event.key;
-
     if(currentCol < cols && /^[a-zA-Z]$/.test(key)) {
 
         tiles[currentRow][currentCol].textContent = key.toUpperCase();
@@ -95,6 +103,7 @@ document.addEventListener("keydown", (event) => {
                     tiles[rowToEvaluate][c].classList.add("flip");
                 
                     tiles[rowToEvaluate][c].classList.add("correct");
+                    colorKey(guess[c], "correct");
                 
                 }, c * 450);
         
@@ -117,6 +126,7 @@ document.addEventListener("keydown", (event) => {
                     tiles[rowToEvaluate][c].classList.add("flip");
                 
                     tiles[rowToEvaluate][c].classList.add("present");
+                    colorKey(letter, "present");
                 
                 }, c * 450);
         
@@ -129,6 +139,7 @@ document.addEventListener("keydown", (event) => {
                     tiles[rowToEvaluate][c].classList.add("flip");
                 
                     tiles[rowToEvaluate][c].classList.add("absent");
+                    colorKey(letter, "absent");
                 
                 }, c * 450);
             }
@@ -156,4 +167,17 @@ document.addEventListener("keydown", (event) => {
             }
         }
     }
+}
+document.addEventListener("keydown", (event) => {
+
+    handleKeyPress(event.key);
+});
+const keys = document.querySelectorAll(".key");
+
+keys.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        handleKeyPress(button.textContent);
+    });
 });
