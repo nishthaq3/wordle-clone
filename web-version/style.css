@@ -142,3 +142,23 @@ h1{
 
     cursor: pointer;
 }
+.large-key{
+    width: 70px;
+}
+#restart-btn{
+
+    margin-top: 20px;
+
+    padding: 12px 20px;
+
+    border: none;
+    border-radius: 5px;
+
+    background-color: #538d4e;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}

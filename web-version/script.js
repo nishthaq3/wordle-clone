@@ -34,6 +34,21 @@ function colorKey(letter, className){
 
         if(key.textContent === letter){
 
+            if(key.classList.contains("correct")){
+                return;
+            }
+
+            if(
+                key.classList.contains("present")
+                &&
+                className === "absent"
+            ){
+                return;
+            }
+
+            key.classList.remove("present");
+            key.classList.remove("absent");
+
             key.classList.add(className);
         }
     });
@@ -178,6 +193,23 @@ keys.forEach((button) => {
 
     button.addEventListener("click", () => {
 
-        handleKeyPress(button.textContent);
+        let key = button.textContent.trim();
+
+        if(key === "⌫"){
+            key = "Backspace";
+        }
+        else if(key === "ENTER"){
+            key = "Enter";
+        }
+        else{
+            key = key.toUpperCase();
+        }
+        
+        handleKeyPress(key);
+        });
     });
+document.getElementById("restart-btn")
+    .addEventListener("click", () => {
+
+        location.reload();
 });
