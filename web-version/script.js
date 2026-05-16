@@ -7,8 +7,24 @@ const cols=5;
 
 let currentRow=0;
 let currentCol=0;
+let gameEnd=false;
 
 const tiles=[];
+
+function showMessage(text){
+
+    const container = document.getElementById("message-container");
+
+    container.innerHTML = "";
+
+    const message = document.createElement("div");
+
+    message.classList.add("message");
+
+    message.textContent = text;
+
+    container.appendChild(message);
+}
 
 for(let r=0;r<rows;r++){
    const row=[]
@@ -22,6 +38,9 @@ for(let r=0;r<rows;r++){
 }
 
 document.addEventListener("keydown", (event) => {
+    if(gameEnd){
+        return;
+    }
 
     const key = event.key;
 
@@ -87,8 +106,23 @@ document.addEventListener("keydown", (event) => {
                 tiles[currentRow][c].classList.add("absent");
             }
         }
+        if(guess === secretWord){
+
+            gameEnd = true;
+        
+            showMessage("You guessed it!");
+            return;
+        }
             currentRow++;
             currentCol=0;
+            
+            if(currentRow === rows){
+
+                gameEnd = true;
+            
+                showMessage(`Game Over! The word was ${secretWord}`);
+                return;
+            }
         }
     }
 });

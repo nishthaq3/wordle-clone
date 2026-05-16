@@ -52,3 +52,41 @@ h1{
     background-color: #3a3a3c;
     border-color: #3a3a3c;
 }
+#message-container{
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.message{
+    background-color: white;
+    color: black;
+
+    padding: 10px 20px;
+
+    border-radius: 5px;
+
+    font-weight: bold;
+
+    opacity: 0;
+
+    animation: fadeMessage 2s ease;
+}
+
+@keyframes fadeMessage{
+
+    0%{
+        opacity: 0;
+    }
+
+    10%{
+        opacity: 1;
+    }
+
+    90%{
+        opacity: 1;
+    }
+
+    100%{
+        opacity: 0;
+    }
+}
