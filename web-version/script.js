@@ -7,6 +7,7 @@ const cols=5;
 
 let currentRow=0;
 let currentCol=0;
+let isAnimating=false;
 let gameEnd=false;
 
 const tiles=[];
@@ -38,7 +39,7 @@ for(let r=0;r<rows;r++){
 }
 
 document.addEventListener("keydown", (event) => {
-    if(gameEnd){
+    if(gameEnd || isAnimating){
         return;
     }
 
@@ -62,6 +63,7 @@ document.addEventListener("keydown", (event) => {
 
         if(currentCol===cols){
             //adding guess logic
+            const rowToEvaluate = currentRow;
         let guess="";
         for(let c=0;c<cols;c++){
             guess += tiles[currentRow][c].textContent;
@@ -74,7 +76,7 @@ document.addEventListener("keydown", (event) => {
         
             return;
         }
-
+        isAnimating = true;
         const letterCount = {};
         for(let letter of secretWord) {
 
@@ -87,8 +89,14 @@ document.addEventListener("keydown", (event) => {
         for(let c = 0; c < cols; c++) {
 
             if(guess[c] === secretWord[c]) {
-        
-                tiles[currentRow][c].classList.add("correct");
+                
+                setTimeout(() => {
+
+                    tiles[rowToEvaluate][c].classList.add("flip");
+                
+                    tiles[rowToEvaluate][c].classList.add("correct");
+                
+                }, c * 450);
         
                 letterCount[guess[c]]--;
             }
@@ -96,7 +104,7 @@ document.addEventListener("keydown", (event) => {
         for(let c = 0; c < cols; c++) {
 
             //skip already green
-            if(tiles[currentRow][c].classList.contains("correct")) {
+            if(guess[c] === secretWord[c]) {
                 continue;
             }
         
@@ -104,13 +112,25 @@ document.addEventListener("keydown", (event) => {
         
             if(letterCount[letter] > 0) {
         
-                tiles[currentRow][c].classList.add("present");
+                setTimeout(() => {
+
+                    tiles[rowToEvaluate][c].classList.add("flip");
+                
+                    tiles[rowToEvaluate][c].classList.add("present");
+                
+                }, c * 450);
         
                 letterCount[letter]--;
         
             } else {
         
-                tiles[currentRow][c].classList.add("absent");
+                setTimeout(() => {
+
+                    tiles[rowToEvaluate][c].classList.add("flip");
+                
+                    tiles[rowToEvaluate][c].classList.add("absent");
+                
+                }, c * 450);
             }
         }
         if(guess === secretWord){
@@ -122,7 +142,11 @@ document.addEventListener("keydown", (event) => {
         }
             currentRow++;
             currentCol=0;
+            setTimeout(() => {
+
+                isAnimating = false;
             
+            }, cols * 450);
             if(currentRow === rows){
 
                 gameEnd = true;
